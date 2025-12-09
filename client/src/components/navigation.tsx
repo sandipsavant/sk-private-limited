@@ -3,35 +3,38 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown, Home, Users, Briefcase, FileText, Rocket, Phone, Grid3X3, Search, Monitor, Target, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageToggle } from "@/components/language-toggle";
+import { useLanguage } from "@/components/language-provider";
 import logoImage from "@assets/Picsart_25-12-09_11-29-44-757[1]_1765271330376.png";
-
-const navItems = [
-  { title: "Home", href: "/", icon: Home },
-  { title: "About", href: "/about", icon: Users },
-];
-
-const serviceItems = [
-  { title: "Social Media Marketing", href: "/services/social-media", icon: Grid3X3 },
-  { title: "SEO Services", href: "/services/seo", icon: Search },
-  { title: "Web Design", href: "/services/web-design", icon: Monitor },
-  { title: "PPC Campaigns", href: "/services/ppc", icon: Target },
-  { title: "Plans & Pricing", href: "/pricing", icon: DollarSign },
-];
-
-const rightNavItems = [
-  { title: "Portfolio", href: "/portfolio", icon: Briefcase },
-  { title: "Blog", href: "/blog", icon: FileText },
-  { title: "Careers", href: "/careers", icon: Rocket },
-  { title: "Contact", href: "/contact", icon: Phone },
-];
 
 export function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const { t } = useLanguage();
 
   const isActive = (href: string) => location === href;
   const isServiceActive = () => location.startsWith("/services") || location === "/pricing";
+
+  const translatedNavItems = [
+    { title: t.nav.home, href: "/", icon: Home },
+    { title: t.nav.about, href: "/about", icon: Users },
+  ];
+
+  const translatedServiceItems = [
+    { title: t.nav.socialMedia, href: "/services/social-media", icon: Grid3X3 },
+    { title: t.nav.seo, href: "/services/seo", icon: Search },
+    { title: t.nav.webDesign, href: "/services/web-design", icon: Monitor },
+    { title: t.nav.ppc, href: "/services/ppc", icon: Target },
+    { title: t.nav.pricing, href: "/pricing", icon: DollarSign },
+  ];
+
+  const translatedRightNavItems = [
+    { title: t.nav.portfolio, href: "/portfolio", icon: Briefcase },
+    { title: t.nav.blog, href: "/blog", icon: FileText },
+    { title: t.nav.careers, href: "/careers", icon: Rocket },
+    { title: t.nav.contact, href: "/contact", icon: Phone },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav" data-testid="nav-main">
@@ -42,13 +45,13 @@ export function Navigation() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-1 flex-wrap">
-            {navItems.map((item) => (
+            {translatedNavItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 <Button
                   variant={isActive(item.href) ? "secondary" : "ghost"}
                   size="sm"
                   className="gap-2"
-                  data-testid={`link-nav-${item.title.toLowerCase()}`}
+                  data-testid={`link-nav-${item.href.replace("/", "") || "home"}`}
                 >
                   <item.icon className="h-4 w-4 text-primary" />
                   {item.title}
@@ -68,7 +71,7 @@ export function Navigation() {
                 data-testid="button-nav-services"
               >
                 <Grid3X3 className="h-4 w-4 text-secondary" />
-                Services
+                {t.nav.services}
                 <ChevronDown className={`h-4 w-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
               </Button>
 
@@ -78,13 +81,13 @@ export function Navigation() {
                 }`}
               >
                 <div className="py-2">
-                  {serviceItems.map((item) => (
+                  {translatedServiceItems.map((item) => (
                     <Link key={item.href} href={item.href}>
                       <div
                         className={`flex items-center gap-3 px-4 py-3 hover-elevate transition-colors ${
                           isActive(item.href) ? "bg-accent" : ""
                         }`}
-                        data-testid={`link-service-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        data-testid={`link-service-${item.href.split("/").pop()}`}
                       >
                         <item.icon className="h-5 w-5 text-primary" />
                         <span className="text-sm font-medium">{item.title}</span>
@@ -95,13 +98,13 @@ export function Navigation() {
               </div>
             </div>
 
-            {rightNavItems.map((item) => (
+            {translatedRightNavItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 <Button
                   variant={isActive(item.href) ? "secondary" : "ghost"}
                   size="sm"
                   className="gap-2"
-                  data-testid={`link-nav-${item.title.toLowerCase()}`}
+                  data-testid={`link-nav-${item.href.replace("/", "")}`}
                 >
                   <item.icon className="h-4 w-4 text-primary" />
                   {item.title}
@@ -111,6 +114,7 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-2">
+            <LanguageToggle />
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -131,7 +135,7 @@ export function Navigation() {
         } overflow-hidden`}
       >
         <div className="px-4 py-4 space-y-2">
-          {navItems.map((item) => (
+          {translatedNavItems.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
               <div
                 className={`flex items-center gap-3 px-4 py-3 rounded-md hover-elevate ${
@@ -146,10 +150,10 @@ export function Navigation() {
 
           <div className="pt-2 pb-1">
             <span className="px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              Services
+              {t.nav.services}
             </span>
           </div>
-          {serviceItems.map((item) => (
+          {translatedServiceItems.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
               <div
                 className={`flex items-center gap-3 px-4 py-3 rounded-md hover-elevate ${
@@ -164,10 +168,10 @@ export function Navigation() {
 
           <div className="pt-2 pb-1">
             <span className="px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              More
+              {t.nav.portfolio}
             </span>
           </div>
-          {rightNavItems.map((item) => (
+          {translatedRightNavItems.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
               <div
                 className={`flex items-center gap-3 px-4 py-3 rounded-md hover-elevate ${
