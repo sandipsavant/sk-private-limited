@@ -50,7 +50,7 @@ export default function About() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl lg:text-5xl font-bold mb-6" data-testid="text-about-title">
-              About <span className="text-gradient">Savant Kulkatni</span>
+              About <span className="text-gradient">SK</span>
             </h1>
             <p className="text-lg text-muted-foreground">
               We are a passionate team of digital marketing experts dedicated to 

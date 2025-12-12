@@ -1,200 +1,138 @@
 import { Link } from "wouter";
-import { ArrowRight, Check, Star, Zap, Crown } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Layout } from "@/components/layout";
+
+// PREMIUM GOLD PULSE — ALWAYS BLACK CARDS (DARK + LIGHT MODE)
 
 const plans = [
   {
-    name: "Starter",
-    icon: Zap,
+    name: "Free",
+    price: "0",
+    period: "/Month",
+    features: ["24x7 Call Support"],
+  },
+  {
+    name: "Basic",
+    price: "4,999",
+    period: "/Month",
+    features: ["PPC Campaign", "Content Creation", "2 Video Creations", "6 Image Designs"],
+  },
+  {
+    name: "Plus",
+    price: "9,999",
+    period: "/Month",
+    features: ["PPC Campaign", "Content Creation", "4 Video Creations", "10 Image Designs", "2K Bulk WhatsApp", "Logo Design"],
+  },
+  {
+    name: "Pro",
+    price: "14,999",
+    period: "/Month",
+    features: ["PPC Campaign", "Content Creation", "3 Video Creations", "6 Image Designs", "3K Bulk WhatsApp", "2K Bulk SMS", "Logo Design", "Website Frontend (1 Month Maintenance Free)"],
+  },
+  {
+    name: "Standard",
+    price: "19,999",
+    period: "/Month",
+    features: ["PPC Campaign", "Content Creation", "8 Video Creations", "20 Image Designs", "4K Bulk WhatsApp", "3K Bulk SMS", "Logo Design", "Website Design & Hosting"],
+  },
+  {
+    name: "Premium",
+    price: "24,999",
+    period: "/Month",
+    features: ["PPC Campaign", "Content Creation", "10 Video Creations", "25 Image Designs", "5K Bulk WhatsApp", "4K Bulk SMS", "Logo Design", "Website Design & Hosting"],
+  },
+  {
+    name: "Business",
     price: "29,999",
-    period: "/month",
-    description: "Perfect for small businesses starting their digital journey",
-    features: [
-      "Social Media Management (2 platforms)",
-      "8 Posts per month",
-      "Basic SEO Audit",
-      "Monthly Performance Report",
-      "Email Support",
-      "1 Campaign per month",
-    ],
-    popular: false,
-  },
-  {
-    name: "Professional",
-    icon: Star,
-    price: "59,999",
-    period: "/month",
-    description: "Ideal for growing businesses seeking comprehensive marketing",
-    features: [
-      "Social Media Management (4 platforms)",
-      "20 Posts per month",
-      "Full SEO Package",
-      "PPC Campaign Management",
-      "Weekly Performance Reports",
-      "Dedicated Account Manager",
-      "Priority Email & Phone Support",
-      "3 Campaigns per month",
-      "Content Creation",
-    ],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    icon: Crown,
-    price: "99,999",
-    period: "/month",
-    description: "For large organizations requiring full-scale marketing solutions",
-    features: [
-      "All Professional Features",
-      "Unlimited Platforms",
-      "40+ Posts per month",
-      "Advanced Analytics Dashboard",
-      "Custom Strategy Development",
-      "Influencer Marketing",
-      "Video Content Creation",
-      "24/7 Priority Support",
-      "Unlimited Campaigns",
-      "Quarterly Strategy Reviews",
-    ],
-    popular: false,
-  },
-];
-
-const faqs = [
-  {
-    question: "What's included in social media management?",
-    answer: "Our social media management includes content creation, posting, community management, responding to comments and messages, and monthly analytics reports.",
-  },
-  {
-    question: "Can I upgrade or downgrade my plan?",
-    answer: "Yes, you can change your plan at any time. Changes will be reflected in your next billing cycle.",
-  },
-  {
-    question: "Do you offer custom packages?",
-    answer: "Absolutely! We understand every business is unique. Contact us to discuss a customized solution tailored to your needs.",
-  },
-  {
-    question: "What is the contract duration?",
-    answer: "We offer flexible month-to-month contracts with no long-term commitment required. For annual plans, we offer a 20% discount.",
-  },
-  {
-    question: "How do I get started?",
-    answer: "Simply choose a plan and contact us. We'll schedule a discovery call to understand your goals and get started right away.",
+    period: "/Month",
+    features: ["PPC Campaign", "Content Creation", "12 Video Creations", "30 Image Designs", "6K Bulk WhatsApp", "5K Bulk SMS", "Logo Design", "Website Design & Hosting", "SEO Services"],
   },
 ];
 
 export default function Pricing() {
   return (
     <Layout>
-      <section className="relative py-20 overflow-hidden" data-testid="section-pricing-hero">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6" data-testid="text-pricing-title">
-              Simple, Transparent <span className="text-gradient">Pricing</span>
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Choose the perfect plan for your business. No hidden fees, no surprises. 
-              All plans include our commitment to delivering results.
-            </p>
-          </div>
-        </div>
+      <style>{`
+        /* GOLD PULSE ANIMATION */
+        .gold-pulse {
+          background: linear-gradient(135deg, #111, #000);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .gold-pulse::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.6), rgba(255,215,0,0.1));
+          animation: goldFlow 4s linear infinite;
+        }
+
+        @keyframes goldFlow {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+
+        /* 3D TILT */
+        .tilt-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tilt-card:hover {
+          transform: perspective(900px) rotateX(6deg) rotateY(-6deg) scale(1.03);
+          box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+      `}</style>
+
+      <section className="py-20 text-center">
+        <h1 className="text-5xl font-bold mb-4">Premium Pricing Plans</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Choose the perfect package tailored for your business growth.
+        </p>
       </section>
 
-      <section className="py-20" data-testid="section-pricing-plans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {plans.map((plan, index) => (
-              <Card
-                key={index}
-                className={`glass-card relative ${plan.popular ? "ring-2 ring-primary" : ""}`}
-                data-testid={`card-pricing-${plan.name.toLowerCase()}`}
-              >
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2" variant="default">
-                    Most Popular
-                  </Badge>
-                )}
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <plan.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="text-center mb-8">
-                    <span className="text-4xl font-bold">₹{plan.price}</span>
-                    <span className="text-muted-foreground">{plan.period}</span>
-                  </div>
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href="/contact">
-                    <Button
-                      className="w-full gap-2"
-                      variant={plan.popular ? "default" : "outline"}
-                      data-testid={`button-pricing-${plan.name.toLowerCase()}`}
-                    >
-                      Get Started
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+      <section className="py-20 px-6 max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {plans.map((plan, index) => (
+          <Card
+            key={index}
+            className="gold-pulse tilt-card rounded-2xl border border-yellow-500/20 shadow-xl text-white bg-black dark:bg-black"
+          >
+            <CardHeader className="text-center pb-0">
+              <h3 className="text-3xl font-bold text-yellow-400">{plan.name}</h3>
+              <p className="text-lg font-semibold mt-2">₹{plan.price} {plan.period}</p>
+            </CardHeader>
+
+            <CardContent className="pt-6">
+              <ul className="space-y-3 text-sm">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex gap-3 items-start">
+                    <Check className="h-5 w-5 text-yellow-400 flex-shrink-0" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link href="/contact">
+                <Button className="w-full mt-6 bg-yellow-500 text-black hover:bg-yellow-400 font-bold">
+                  Get Started <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ))}
       </section>
 
-      <section className="py-20 bg-card" data-testid="section-pricing-faq">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4" data-testid="text-faq-title">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-muted-foreground">
-              Have questions? We have answers.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <Card key={index} className="glass-card" data-testid={`card-faq-${index}`}>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-2">{faq.question}</h3>
-                  <p className="text-muted-foreground text-sm">{faq.answer}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-primary" data-testid="section-pricing-cta">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-primary-foreground mb-4">
-            Need a Custom Solution?
-          </h2>
-          <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            We create tailored marketing packages for businesses with unique requirements. 
-            Let's discuss your specific needs.
-          </p>
-          <Link href="/contact">
-            <Button variant="secondary" size="lg" className="gap-2" data-testid="button-pricing-custom">
-              Contact Us
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
+      <section className="py-20 bg-primary text-center text-primary-foreground mt-10">
+        <h2 className="text-3xl font-bold mb-4">Need a Custom Package?</h2>
+        <p className="opacity-80 mb-8 max-w-xl mx-auto">
+          We create tailored marketing strategies for all businesses.
+        </p>
+        <Link href="/contact">
+          <Button variant="secondary" size="lg" className="gap-2">
+            Contact Us <ArrowRight className="h-4 w-4" />
+          </Button>
+        </Link>
       </section>
     </Layout>
   );
