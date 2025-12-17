@@ -42,12 +42,6 @@ export function Footer() {
               <Button variant="outline" size="icon" data-testid="link-social-facebook">
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" data-testid="link-social-twitter">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" data-testid="link-social-linkedin">
-                <Linkedin className="h-4 w-4" />
-              </Button>
               <Button variant="outline" size="icon" data-testid="link-social-instagram">
                 <Instagram className="h-4 w-4" />
               </Button>
@@ -99,7 +93,7 @@ export function Footer() {
             <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>contact@savantkulkatni.com</span>
+                <span>contact@savantkulkarni.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
@@ -111,7 +105,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground" data-testid="text-copyright">
-              © 2024 Savant Kulkatni Private Limited. All rights reserved.
+              © 2024 Savant Kulkarni Private Limited. All rights reserved.
             </p>
           </div>
         </div>
