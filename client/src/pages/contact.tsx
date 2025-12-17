@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 
 const contactInfo = [
-  { icon: Mail, title: "Email", value: "contact@savantkulkatni.com", href: "mailto:contact@savantkulkatni.com" },
+  { icon: Mail, title: "Email", value: "contact@savantkulkatni.com", href: "mailto:contact@savantkulkarni.com" },
   { icon: Phone, title: "Phone", value: "+91 7350191697", href: "tel:+917350191697" },
   { icon: Phone, title: "Alternate", value: "+91 9322466726", href: "tel:+919322466726" },
   { icon: MapPin, title: "Address", value: "Pune , Dighi " },
