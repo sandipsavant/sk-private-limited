@@ -39,10 +39,10 @@ export function Footer() {
               We help businesses grow through innovative strategies and data-driven results.
             </p>
             <div className="flex gap-2">
-              <Button variant="outline" size="icon" data-testid="link-social-facebook">
+              <Button variant="outline" size="icon" data-testid="https://www.facebook.com/share/1bppc4SZce/">
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" data-testid="link-social-instagram">
+              <Button variant="outline" size="icon" data-testid="https://www.instagram.com/sk__businesscare?igsh=MTllamVzem52ZDE1eg==">
                 <Instagram className="h-4 w-4" />
               </Button>
             </div>
