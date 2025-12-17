@@ -27,13 +27,6 @@ const values = [
   },
 ];
 
-const team = [
-  { name: "Sanjay Kulkarni", role: "Founder & CEO", description: "15+ years in digital marketing" },
-  { name: "Meera Sharma", role: "Creative Director", description: "Award-winning designer" },
-  { name: "Vikram Singh", role: "SEO Director", description: "Google certified expert" },
-  { name: "Anita Patel", role: "Social Media Lead", description: "Content strategy specialist" },
-];
-
 export default function About() {
   return (
     <Layout>
@@ -127,37 +120,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* TEAM */}
-      <section className="py-20 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Leadership Team</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Meet the experts driving our success
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="glass-card text-center">
-                <CardContent className="p-8">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary mx-auto mb-6 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-white">
-                      {member.name.split(" ").map(n => n[0]).join("")}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                  <div className="text-primary text-sm mb-2">{member.role}</div>
-                  <p className="text-muted-foreground text-sm">
-                    {member.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -178,3 +140,4 @@ export default function About() {
     </Layout>
   );
 }
+
