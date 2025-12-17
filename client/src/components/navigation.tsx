@@ -28,6 +28,7 @@ export function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   const { t } = useLanguage();
 
@@ -68,9 +69,9 @@ export function Navigation() {
               <Link key={item.href} href={item.href}>
                 <Button
                   size="sm"
-                  className={`white-glass-btn gap-2 transition-all duration-200
-                    hover:scale-105 active:scale-95
-                    ${location === item.href ? "ring-2 ring-primary/40" : ""}`}
+                  className={`white-glass-btn gap-2 ${
+                    location === item.href ? "ring-2 ring-primary/40" : ""
+                  }`}
                 >
                   <item.icon className="h-4 w-4" />
                   {item.title}
@@ -78,15 +79,11 @@ export function Navigation() {
               </Link>
             ))}
 
-            {/* SERVICES DROPDOWN */}
-            <div
-              className="relative"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
+            {/* DESKTOP SERVICES */}
+            <div className="relative">
               <Button
                 size="sm"
-                className="white-glass-btn gap-2 transition-all duration-200 hover:scale-105"
+                className="white-glass-btn gap-2"
                 onClick={() => setServicesOpen(!servicesOpen)}
               >
                 <Grid3X3 className="h-4 w-4" />
@@ -98,36 +95,29 @@ export function Navigation() {
                 />
               </Button>
 
-              <div
-                className={`absolute top-full left-0 mt-2 w-64
-                  origin-top transform transition-all duration-200 ease-out
+              {servicesOpen && (
+                <div className="absolute top-full left-0 mt-2 w-64
                   bg-white/40 backdrop-blur-xl border border-black/10
-                  rounded-xl shadow-2xl
-                  ${
-                    servicesOpen
-                      ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-                  }`}
-              >
-                {serviceItems.map((item) => (
-                  <Link key={item.href} href={item.href}>
-                    <div className="flex items-center gap-3 px-4 py-3
-                      transition-all duration-200 rounded-lg
-                      hover:bg-white/60 active:scale-95">
-                      <item.icon className="h-5 w-5" />
-                      {item.title}
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                  rounded-xl shadow-xl overflow-hidden">
+                  {serviceItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <div
+                        className="flex items-center gap-3 px-4 py-3
+                        hover:bg-white/60 transition"
+                        onClick={() => setServicesOpen(false)}
+                      >
+                        <item.icon className="h-5 w-5" />
+                        {item.title}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
             {rightNavItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <Button
-                  size="sm"
-                  className="white-glass-btn gap-2 transition-all duration-200 hover:scale-105 active:scale-95"
-                >
+                <Button size="sm" className="white-glass-btn gap-2">
                   <item.icon className="h-4 w-4" />
                   {item.title}
                 </Button>
@@ -143,7 +133,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden active:scale-90"
+              className="lg:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X /> : <Menu />}
@@ -153,36 +143,71 @@ export function Navigation() {
       </div>
 
       {/* MOBILE MENU */}
-      <div
-        className={`lg:hidden absolute top-16 left-0 right-0
-          transform transition-all duration-300 ease-out
-          bg-white/30 backdrop-blur-xl border-t border-black/10
-          ${
-            mobileMenuOpen
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 -translate-y-4 scale-95 pointer-events-none"
-          }`}
-      >
-        <div className="p-4 space-y-2">
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-white/40 backdrop-blur-xl border-t border-black/10">
+          <div className="p-4 space-y-2">
 
-          {[...navItems, ...serviceItems, ...rightNavItems].map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <div className="white-glass-btn flex items-center gap-3 px-4 py-3
-                transition-all duration-200
-                hover:bg-white/60 active:scale-95">
-                <item.icon className="h-5 w-5" />
-                {item.title}
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href}>
+                <div
+                  className="white-glass-btn flex items-center gap-3 px-4 py-3"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <item.icon className="h-5 w-5" />
+                  {item.title}
+                </div>
+              </Link>
+            ))}
+
+            {/* MOBILE SERVICES ACCORDION */}
+            <div>
+              <div
+                className="white-glass-btn flex items-center justify-between px-4 py-3"
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+              >
+                <div className="flex items-center gap-3">
+                  <Grid3X3 className="h-5 w-5" />
+                  {t.nav.services}
+                </div>
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${
+                    mobileServicesOpen ? "rotate-180" : ""
+                  }`}
+                />
               </div>
-            </Link>
-          ))}
 
+              {mobileServicesOpen && (
+                <div className="ml-4 mt-2 space-y-1">
+                  {serviceItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <div
+                        className="white-glass-btn flex items-center gap-3 px-4 py-2"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        {item.title}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {rightNavItems.map((item) => (
+              <Link key={item.href} href={item.href}>
+                <div
+                  className="white-glass-btn flex items-center gap-3 px-4 py-3"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <item.icon className="h-5 w-5" />
+                  {item.title}
+                </div>
+              </Link>
+            ))}
+
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
-
