@@ -15,7 +15,7 @@ const contactInfo = [
   { icon: Mail, title: "Email", value: "contact@savantkulkatni.com", href: "mailto:contact@savantkulkatni.com" },
   { icon: Phone, title: "Phone", value: "+91 7350191697", href: "tel:+917350191697" },
   { icon: Phone, title: "Alternate", value: "+91 9322466726", href: "tel:+919322466726" },
-  { icon: MapPin, title: "Address", value: "123 Business Hub, Andheri East, Mumbai 400069" },
+  { icon: MapPin, title: "Address", value: "Pune , Dighi " },
   { icon: Clock, title: "Hours", value: "Mon - Fri: 9:00 AM - 6:00 PM" },
 ];
 
