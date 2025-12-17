@@ -53,35 +53,43 @@ export function Navigation() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
-          
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+
           {/* LOGO */}
           <Link href="/" className="flex items-center gap-2">
             <img src={logoImage} alt="Logo" className="h-12 w-auto" />
           </Link>
 
           {/* DESKTOP MENU */}
-          <div className="hidden lg:flex items-center gap-2 flex-wrap">
+          <div className="hidden lg:flex items-center gap-2">
 
-            {/* MAIN NAV ITEMS */}
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <Button size="sm" className="white-glass-btn gap-2">
-                  <item.icon className="h-4 w-4 text-black/70" />
+                <Button
+                  size="sm"
+                  className={`white-glass-btn gap-2 transition-all duration-200
+                    hover:scale-105 active:scale-95
+                    ${location === item.href ? "ring-2 ring-primary/40" : ""}`}
+                >
+                  <item.icon className="h-4 w-4" />
                   {item.title}
                 </Button>
               </Link>
             ))}
 
-            {/* SERVICES */}
+            {/* SERVICES DROPDOWN */}
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <Button size="sm" className="white-glass-btn gap-2">
-                <Grid3X3 className="h-4 w-4 text-black/70" />
+              <Button
+                size="sm"
+                className="white-glass-btn gap-2 transition-all duration-200 hover:scale-105"
+                onClick={() => setServicesOpen(!servicesOpen)}
+              >
+                <Grid3X3 className="h-4 w-4" />
                 {t.nav.services}
                 <ChevronDown
                   className={`h-4 w-4 transition-transform ${
@@ -90,39 +98,44 @@ export function Navigation() {
                 />
               </Button>
 
-              {/* DROPDOWN */}
               <div
-                className={`absolute top-full left-0 mt-2 w-64 
-                bg-white/40 backdrop-blur-lg border border-black/10 
-                rounded-lg shadow-xl transition-all duration-200
-                ${servicesOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+                className={`absolute top-full left-0 mt-2 w-64
+                  origin-top transform transition-all duration-200 ease-out
+                  bg-white/40 backdrop-blur-xl border border-black/10
+                  rounded-xl shadow-2xl
+                  ${
+                    servicesOpen
+                      ? "opacity-100 scale-100 translate-y-0"
+                      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+                  }`}
               >
-                <div className="py-2">
-                  {serviceItems.map((item) => (
-                    <Link key={item.href} href={item.href}>
-                      <div className="flex items-center gap-3 px-4 py-3 
-                        hover:bg-white/60 transition rounded-md">
-                        <item.icon className="h-5 w-5 text-black/70" />
-                        <span className="text-sm text-black">{item.title}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+                {serviceItems.map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    <div className="flex items-center gap-3 px-4 py-3
+                      transition-all duration-200 rounded-lg
+                      hover:bg-white/60 active:scale-95">
+                      <item.icon className="h-5 w-5" />
+                      {item.title}
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
 
-            {/* RIGHT NAV ITEMS */}
             {rightNavItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <Button size="sm" className="white-glass-btn gap-2">
-                  <item.icon className="h-4 w-4 text-black/70" />
+                <Button
+                  size="sm"
+                  className="white-glass-btn gap-2 transition-all duration-200 hover:scale-105 active:scale-95"
+                >
+                  <item.icon className="h-4 w-4" />
                   {item.title}
                 </Button>
               </Link>
             ))}
           </div>
 
-          {/* TOGGLES + MOBILE MENU BUTTON */}
+          {/* TOGGLES & MOBILE BUTTON */}
           <div className="flex items-center gap-2">
             <LanguageToggle />
             <ThemeToggle />
@@ -130,10 +143,10 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden active:scale-90"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <X /> : <Menu />}
             </Button>
           </div>
         </div>
@@ -141,46 +154,27 @@ export function Navigation() {
 
       {/* MOBILE MENU */}
       <div
-        className={`lg:hidden absolute top-16 left-0 right-0 transition-all duration-300
+        className={`lg:hidden absolute top-16 left-0 right-0
+          transform transition-all duration-300 ease-out
           bg-white/30 backdrop-blur-xl border-t border-black/10
-          ${mobileMenuOpen ? "opacity-100 visible max-h-screen" : "opacity-0 invisible max-h-0"}`}
+          ${
+            mobileMenuOpen
+              ? "opacity-100 translate-y-0 scale-100"
+              : "opacity-0 -translate-y-4 scale-95 pointer-events-none"
+          }`}
       >
-        <div className="px-4 py-4 space-y-3">
+        <div className="p-4 space-y-2">
 
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-              <div className="white-glass-btn flex items-center gap-3 px-4 py-3">
-                <item.icon className="h-5 w-5 text-black/70" />
-                {item.title}
-              </div>
-            </Link>
-          ))}
-
-          <div className="pt-2">
-            <span className="px-4 text-xs uppercase text-black/70 tracking-wider">
-              {t.nav.services}
-            </span>
-          </div>
-
-          {serviceItems.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-              <div className="white-glass-btn flex items-center gap-3 px-4 py-3">
-                <item.icon className="h-5 w-5 text-black/70" />
-                {item.title}
-              </div>
-            </Link>
-          ))}
-
-          <div className="pt-2">
-            <span className="px-4 text-xs uppercase text-black/70 tracking-wider">
-              {t.nav.portfolio}
-            </span>
-          </div>
-
-          {rightNavItems.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-              <div className="white-glass-btn flex items-center gap-3 px-4 py-3">
-                <item.icon className="h-5 w-5 text-black/70" />
+          {[...navItems, ...serviceItems, ...rightNavItems].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <div className="white-glass-btn flex items-center gap-3 px-4 py-3
+                transition-all duration-200
+                hover:bg-white/60 active:scale-95">
+                <item.icon className="h-5 w-5" />
                 {item.title}
               </div>
             </Link>
@@ -191,3 +185,4 @@ export function Navigation() {
     </nav>
   );
 }
+
